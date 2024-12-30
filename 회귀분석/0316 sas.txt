@@ -1,0 +1,17 @@
+title 회귀계수의 부호가 바뀜;
+data norm;
+ do i=1 to 50;
+ norm1=normal(i); norm2=normal(i); norm3=normal(i);
+   y=norm1*20+100;
+   x1=y+norm2*10;
+   x2=x1+norm2*10 +norm3*10;
+   output;
+end;
+run;
+
+proc corr nosimple; var y x1x2; run;
+proc reg; model y=x1;
+proc reg; model y=x2;
+proc reg; model y=x1 x2/partial vif; run;  /*x2의 계수가 음수로바뀜*/
+proc sgscatter; matrix y x1 x2; run;
+quit;
