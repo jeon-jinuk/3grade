@@ -1,0 +1,30 @@
+library(readxl)
+
+install.packages("fpp2")
+library(fpp2)
+a <- read_xlsx("C:\\Users\\HYUNCOM\\Desktop\\data_4031_20230925.xlsx")
+a
+aa <- ts(a)
+aa <- aa[,-1]
+str(aa)
+
+daa <- diff(aa)
+daa4 <- diff(aa,4)
+ddaa <- diff(daa)
+
+autoplot(aa) +
+  ggtitle("삼성전기") +
+  ylab("일자") +
+  xlab("종가")
+
+autoplot(daa) +
+  ggtitle("삼성전기") +
+  ylab("일자") +
+  xlab("종가")
+
+
+
+ggAcf(aa,lag=743)
+
+
+ggAcf(daa)
